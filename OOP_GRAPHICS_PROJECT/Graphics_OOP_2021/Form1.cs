@@ -25,7 +25,7 @@ namespace Graphics_OOP_2021
         int y_stretch = 0;
         int _x = 0;
         int _y = 0;
- 
+
         private void panel1_MouseDown(object sender, MouseEventArgs e)
         {
             x_stretch = e.X;
@@ -44,13 +44,14 @@ namespace Graphics_OOP_2021
                 Rectangle rect = new Rectangle(x_stretch, y_stretch, rect_height, rect_width);
                 rect.Draw(graphics);
                 figures.Add(rect);
-            } if (rb_circle.Checked)
+            }
+            if (rb_circle.Checked)
             {
                 double rad = Math.Sqrt(Math.Pow((x_stretch - _x), 2) + Math.Pow((y_stretch - _y), 2)); // вектор
                 Circle circle = new Circle(x_stretch, y_stretch, (int)rad);
                 circle.Draw(graphics);
                 figures.Add(circle);
-                listBox_drawings.Text = (circle.Property(_x, _y)).ToString();
+
             }
             if (rb_cart.Checked)
             {
@@ -59,14 +60,16 @@ namespace Graphics_OOP_2021
                 Cart cart = new Cart(x_stretch, y_stretch, rect_height, rect_width);
                 cart.Draw(graphics);
                 figures.Add(cart);
-            } if (rb_sandcart.Checked)
+            }
+            if (rb_sandcart.Checked)
             {
                 int rect_width = Math.Abs(_x - x_stretch);
                 int rect_height = Math.Abs(_y - y_stretch);
                 SandCart sandCart = new SandCart(x_stretch, y_stretch, rect_height, rect_width);
                 sandCart.Draw(graphics);
                 figures.Add(sandCart);
-            } if (rb_coalcart.Checked)
+            }
+            if (rb_coalcart.Checked)
             {
                 int rect_width = Math.Abs(_x - x_stretch);
                 int rect_height = Math.Abs(_y - y_stretch);
@@ -74,17 +77,20 @@ namespace Graphics_OOP_2021
                 coalCart.Draw(graphics);
                 figures.Add(coalCart);
             }
-            for (int i = 0; i < figures.Count; i++)
-            {
-                listBox_drawings.Text = figures[i].ToString();
-                Console.WriteLine(figures[i]);
-            }
-
         }
-       
+
         private void button_refresh_Click(object sender, EventArgs e)
         {
             panel1.Refresh();
+        }
+
+        private void button_createtrain_Click(object sender, EventArgs e)
+        { 
+            int x_last = panel1.Width;
+            int y_last = panel1.Height / 2;
+            int quantity = Convert.ToInt32(textBox_vagonquantity.Text);
+            Train train = new Train(_x, _y, (y_last / quantity) / 2, x_last / quantity, quantity);
+            train.Draw(graphics);
         }
     }
 }
